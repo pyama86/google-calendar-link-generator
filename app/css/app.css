@@ -1,0 +1,8 @@
+.row-link .panel-body {
+    word-wrap: break-word;
+}
+
+.bootstrap-datetimepicker-widget td span {
+    height: auto;
+    line-height: normal;
+}
