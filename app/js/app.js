@@ -1,27 +1,75 @@
 ;(function(){
     'use strict';
 
-    // Attach datepickers
-    var options = {
-        format: 'DD/MM/YYYY HH:mm'
-    };
-    $('.date').datetimepicker(options);
+    var app = angular.module('calendar', ['ngAnimate']);
 
-    var dpStart = $('#dateStartContainer');
-    var dpEnd   = $('#dateEndContainer');
+    app.controller('EventController', function($scope){
+        var getUrl = function(title, desc, start, end){
+            var uri = new URI('https://www.google.com/calendar/render');
+            uri.search({
+                action:  'TEMPLATE',
+                text:    title,
+                details: desc,
+                dates:   start + '/' + end
+            });
 
-    dpStart.datetimepicker(options);
-    dpStart.on('dp.change', function(e){
-        dpEnd.data('DateTimePicker').setMinDate(e.date);
+            return uri.toString();
+        };
+
+        $scope.getUrl = function(){
+            /* TODO Add form validation */
+            $scope.copied = false;
+            $scope.url    = getUrl($scope.title, $scope.desc, $scope.start, $scope.end);
+        };
     });
 
-    dpEnd.datetimepicker(options);
-    dpEnd.on('dp.change', function(e){
-        dpStart.data('DateTimePicker').setMaxDate(e.date);
+    app.directive('datetime', function($parse){
+        var link = function(scope, element, attrs){
+            var options = {
+                format: 'DD/MM/YYYY HH:mm'
+            };
+
+            var dp    = $(element);
+            var model = $parse(attrs.ngModel);
+
+            dp.datetimepicker(options);
+            dp.on('dp.change', function(){
+                var date = dp.data('DateTimePicker')
+                    .getDate()
+                    .zone(0)
+                    .format('YYYYMMDDTHHmmss')
+                    + 'Z';
+
+                scope.$apply(function(scope){
+                    model.assign(scope, date);
+                });
+            });
+        };
+
+        return {
+            restrict: 'A',
+            link: link
+        };
     });
 
+    app.directive('copyOnClick', function(){
+        var link = function(scope, element, attrs){
+            var client = new ZeroClipboard(element);
+
+            client.on('ready', function(event){
+                client.on('copy', function(event) {
+                    event.clipboardData.setData('text/plain', scope.url);
+
+                    scope.$apply(function(scope){
+                        scope.copied = true;
+                    });
+                });
+            });
+        };
+
+        return {
+            restrict: 'A',
+            link: link
+        };
+    });
 })();
-
-
-// https://www.google.com/calendar/render?action=TEMPLATE&text=Summary+of+the+event&dates=20140510T093846Z/20140511T093846Z&details=Description+of+the+event&location=Location+of+the+event&pli=1&uid=&sf=true&output=xml
-
