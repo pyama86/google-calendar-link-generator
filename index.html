@@ -20,6 +20,12 @@
             <h1>Event URL generator</h1>
             <h2>"add to Google Calendar"</h2>
         </div>
+        <div class="col-md-5 col-lg-4" ng-show="url">
+            <h3>Event URL</h3>
+            <div>
+				<textarea class="form-control">{{url}}</textarea>
+            </div>
+        </div>
     </div>
 
     <div class="row">
@@ -59,15 +65,6 @@
                 </div>
                 <input type="submit" value="Generate" class="btn btn-primary"/>
             </form>
-        </div>
-    </div>
-
-    <div ng-show="url" class="row row-link">
-        <div class="col-md-5 col-lg-4">
-            <h3>Event URL</h3>
-            <div>
-				<textarea style="width: 100%">{{url}}</textarea>
-            </div>
         </div>
     </div>
 </div>
