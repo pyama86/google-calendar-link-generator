@@ -21,7 +21,7 @@
             <h2>"add to Google Calendar"</h2>
         </div>
         <div class="col-md-5 col-lg-4" ng-show="url">
-            <h3>Event URL</h3>
+            <h3>イベントURL</h3>
             <div>
 				<textarea class="form-control">{{url}}</textarea>
             </div>
@@ -31,22 +31,22 @@
     <div class="row">
         <div class="col-md-5 col-lg-4">
             <form novalidate ng-submit="getUrl()">
-                <h3>Event Info</h3>
+                <h3>イベント情報</h3>
                 <div class="form-group">
                     <label for="eventTitle">Title:</label>
                     <input ng-model="title" type="text" id="eventTitle" name="title" class="form-control" required />
                 </div>
                 <div class="form-group">
-                    <label for="eventDesc">Description:</label>
+                    <label for="eventDesc">イベント詳細:</label>
                     <textarea ng-model="desc" id="eventDesc" name="desc" class="form-control" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="eventDesc">Location:</label>
+                    <label for="eventDesc">場所:</label>
                     <textarea ng-model="locat" id="eventLocat" name="locat" class="form-control" required></textarea>
                 </div>
                 <h3>Date and Time</h3>
                 <div class="form-group">
-                    <label for="eventDateStart">Start:</label>
+                    <label for="eventDateStart">開始時間:</label>
                     <div class="input-group date" id="dateStartContainer" datetime ng-model="start">
                         <input type="text" class="form-control" id="eventDateStart" name="start" readonly/>
                         <span class="input-group-addon">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="eventDateEnd">End:</label>
+                    <label for="eventDateEnd">終了時間:</label>
                     <div class="input-group date" id="dateEndContainer" datetime ng-model="end">
                         <input type="text" class="form-control" id="eventDateEnd" name="end" readonly/>
                         <span class="input-group-addon">
@@ -63,7 +63,7 @@
                         </span>
                     </div>
                 </div>
-                <input type="submit" value="Generate" class="btn btn-primary"/>
+                <input type="submit" value="作成" class="btn btn-primary"/>
             </form>
         </div>
     </div>
